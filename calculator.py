@@ -9,6 +9,7 @@ from ops.log import log
 from ops.max import max
 from ops.mod import mod
 from ops.multiply import multiply
+from ops.permutation import permutation
 from ops.power import power
 from ops.subtract import subtract
 
@@ -27,4 +28,5 @@ operations = {
     "max": max,
     "factorial": factorial,
     "combination": combination,
+    "permutation": permutation,
 }
