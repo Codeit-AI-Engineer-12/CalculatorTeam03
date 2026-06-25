@@ -1,3 +1,4 @@
+import ast
 import re
 from random import randint
 
@@ -8,7 +9,7 @@ pattern = r"\d+|//|\+\+|[+\-*/]"
 
 
 def main():
-    user_input = {"choice": 0, "expr": ""}
+    user_input = {"choice": 0, "expr": "", "point": ""}
     while user_input["choice"] != 9:
         try:
             user_input["choice"] = int(
@@ -54,7 +55,51 @@ def main():
 
         elif user_input["choice"] == 2:
             print("1차 방정식의 기울기를 구할 수 있습니다.")
+            while True:
+                user_input["expr"] = input(
+                    "※ 식을 입력해주세요. 이전 단계로 가려면 q를 입력하세요\n\t ex) 3x + 3\n\n\t"
+                )
+                if user_input["expr"].split() == "q":
+                    break
+                user_input["point"] = input(
+                    "기울기 값을 원하는 포인트를 입력해주세요. x = "
+                )
 
+                # 숫자 뒤에 바로 영문자가 오는 경우 곱셈 연산자(*) 추가 (3x -> 3*x)
+                sanitized_str = re.sub(r"(\d+)([a-zA-Z])", r"\1*\2", user_input["expr"])
+
+                # 실행 가능한 람다 함수 형태의 문자열로 변환 ("3*x + 3" -> "lambda x: 3*x + 3")
+                lambda_str = f"lambda x: {sanitized_str}"
+
+                # AST 파싱 및 검증
+                tree = ast.parse(lambda_str, mode="eval")
+
+                if isinstance(tree.body, ast.Lambda):
+                    # 컴파일 후 함수 객체 생성
+                    code = compile(tree, filename="<string>", mode="eval")
+                    lambda_func = eval(code)
+
+                    # 함수 실행
+                    try:
+                        target_point = float(user_input["point"])
+                        # 함수 정의(f, x)에 맞추어 키워드 인자로 명확하게 전달
+                        result = operations["diff"](f=lambda_func, x=target_point)
+
+                        print(
+                            f"\n\t===\t x = {target_point} 에서의 기울기(근사치) = {result}\n\n"
+                        )
+                    except ValueError:
+                        print("포인트 값에는 올바른 숫자만 입력해주세요.")
+        elif user_input["choice"] == 3:
+            print("아직 구현 안했지요...")
+        elif (
+            user_input["choice"] == 4
+            or user_input["choice"] == 5
+            or user_input["choice"] == 6
+            or user_input["choice"] == 7
+            or user_input["choice"] == 8
+        ):
+            print("없는 선택지에서 찾으려고 하지 마세요...쫌..")
     print("=" * 50)
     print("계산기가 종료됐습니다.")
 
