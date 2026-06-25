@@ -9,6 +9,7 @@ from ops.multiply import multiply
 from ops.power import power
 from ops.subtract import subtract
 from ops.max import max
+from ops.factorial import factorial
 
 
 operations = {
@@ -23,5 +24,6 @@ operations = {
     "--": decrease,
     "log": log,
     "diff": differentiator,
-    "max": max
+    "max": max,
+    "factorial": factorial
 }
