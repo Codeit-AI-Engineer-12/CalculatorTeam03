@@ -3,4 +3,4 @@ from ops.multiply import multiply
 from ops.subtract import subtract
 from ops.divide import divide
 
-operations = {"%": mod, "*": multiply, "-": subtract, "/": devide}
+operations = {"%": mod, "*": multiply, "-": subtract, "/": divide}
