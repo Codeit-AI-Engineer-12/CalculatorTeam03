@@ -1,7 +1,13 @@
+from ops.add import add
 from ops.mod import mod
 from ops.multiply import multiply
 from ops.subtract import subtract
-
 from ops.power import power
 
-operations = {"%": mod, "*": multiply, "-": subtract,"**": power}
+operations = {
+    "+": add,
+    "%": mod,
+    "*": multiply,
+    "-": subtract,
+    "**": power,
+}
