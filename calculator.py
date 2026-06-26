@@ -11,6 +11,7 @@ from ops.min import min_num
 from ops.mod import mod
 from ops.multiply import multiply
 from ops.permutation import permutation
+from ops.Permutation_with_Repetition import permutation_with_repetition
 from ops.power import power
 from ops.subtract import subtract
 
@@ -31,8 +32,8 @@ operations = {
     "!": factorial,
     "inc": increase,
     "dec": decrease,
-    "max": max,
     "factorial": factorial,
     "combination": combination,
     "permutation": permutation,
+    "permutation_with_repetition": permutation_with_repetition,
 }
